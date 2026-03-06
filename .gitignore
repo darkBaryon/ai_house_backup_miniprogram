@@ -1,0 +1,9 @@
+node_modules/
+miniprogram_npm/
+dist/
+project.config.json.local
+project.private.config.json
+.DS_Store
+*.log
+.vscode/
+pycache/
