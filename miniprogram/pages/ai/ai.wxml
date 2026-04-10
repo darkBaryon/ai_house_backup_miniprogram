@@ -1,0 +1,55 @@
+<view class="page-shell ai-page">
+  <view class="section ai-hero section-card">
+    <view class="pill ai-pill">AI 顾问在线</view>
+    <view class="ai-title">先说需求，我来帮你缩小范围</view>
+    <view class="ai-copy">不需要一次把条件说得很完整。预算、区域、通勤、家庭结构，告诉我其中一部分就够了。</view>
+  </view>
+
+  <view class="section section-card prompt-card">
+    <view class="section-head">
+      <text class="section-title">常见需求</text>
+      <text class="section-subtitle">点一下就能开始</text>
+    </view>
+    <view class="prompt-grid">
+      <view wx:for="{{promptItems}}" wx:key="title" class="prompt-item">
+        <text class="prompt-title">{{item.title}}</text>
+        <text class="prompt-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section section-card chat-card">
+    <view class="section-head">
+      <text class="section-title">对话预览</text>
+      <text class="section-subtitle">后续接真实接口</text>
+    </view>
+    <view wx:for="{{messages}}" wx:key="content" class="chat-row chat-{{item.role}}">
+      <view class="chat-bubble">{{item.content}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">AI 输出结果</text>
+      <text class="section-subtitle">结构化建议更容易继续行动</text>
+    </view>
+    <view wx:for="{{aiResults}}" wx:key="title" class="result-card section-card">
+      <view class="result-title">{{item.title}}</view>
+      <view class="result-summary">{{item.summary}}</view>
+      <view class="tag-row">
+        <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section section-card follow-card">
+    <view class="section-title">你可以继续追问</view>
+    <view class="follow-row">
+      <text wx:for="{{followUps}}" wx:key="*this" class="follow-chip">{{item}}</text>
+    </view>
+    <view class="follow-actions">
+      <button class="btn-primary">生成选房清单</button>
+      <button class="btn-ghost">转人工顾问</button>
+    </view>
+  </view>
+</view>

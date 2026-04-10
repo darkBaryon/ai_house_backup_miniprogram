@@ -1,0 +1,249 @@
+.hero {
+  padding: 28rpx;
+  background:
+    radial-gradient(circle at top right, rgba(25, 194, 160, 0.18), transparent 36%),
+    linear-gradient(160deg, #1b4dcc 0%, #1f5eff 48%, #19c2a0 100%);
+  color: #ffffff;
+}
+
+.hero-top {
+  margin-bottom: 24rpx;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.brand-badge,
+.city-switch {
+  display: inline-flex;
+  align-items: center;
+  height: 48rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 22rpx;
+}
+
+.hero-title {
+  margin-bottom: 14rpx;
+  font-size: 42rpx;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.hero-copy {
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 88rpx;
+  padding: 0 18rpx 0 24rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.search-placeholder {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.search-action {
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 22rpx;
+}
+
+.filter-scroll {
+  margin: 20rpx -8rpx 0;
+  white-space: nowrap;
+}
+
+.filter-row,
+.match-row {
+  display: inline-flex;
+  padding: 8rpx;
+}
+
+.hero-pill {
+  margin-right: 16rpx;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ai-banner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  background: rgba(10, 23, 54, 0.18);
+}
+
+.ai-banner-title {
+  margin-bottom: 8rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.ai-banner-copy {
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.shortcut-card {
+  padding: 28rpx;
+}
+
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16rpx;
+}
+
+.shortcut-item {
+  min-height: 126rpx;
+  padding: 20rpx 18rpx;
+  border-radius: 24rpx;
+}
+
+.shortcut-title {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.shortcut-subtitle {
+  display: block;
+  font-size: 20rpx;
+  color: var(--text-secondary);
+}
+
+.shortcut-blue {
+  background: linear-gradient(180deg, #eef3ff 0%, #f6f9ff 100%);
+}
+
+.shortcut-green {
+  background: linear-gradient(180deg, #ebfbf7 0%, #f6fffc 100%);
+}
+
+.shortcut-gold {
+  background: linear-gradient(180deg, #fff6e5 0%, #fffbf2 100%);
+}
+
+.shortcut-purple {
+  background: linear-gradient(180deg, #f0efff 0%, #f7f6ff 100%);
+}
+
+.property-card {
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.property-cover,
+.match-cover {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.property-cover {
+  height: 240rpx;
+}
+
+.match-cover {
+  height: 160rpx;
+  border-radius: 22rpx;
+  margin-bottom: 18rpx;
+}
+
+.cover-blue {
+  background:
+    linear-gradient(135deg, rgba(31, 94, 255, 0.12), rgba(25, 194, 160, 0.18)),
+    linear-gradient(45deg, #d8e6ff 0%, #edf4ff 100%);
+}
+
+.cover-green {
+  background:
+    linear-gradient(135deg, rgba(25, 194, 160, 0.16), rgba(246, 185, 76, 0.18)),
+    linear-gradient(45deg, #e4faf4 0%, #effdf8 100%);
+}
+
+.property-body {
+  padding: 24rpx;
+}
+
+.property-title,
+.match-title {
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.property-copy,
+.match-copy {
+  margin-bottom: 8rpx;
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin: 16rpx 0;
+}
+
+.property-tag {
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-size: 20rpx;
+}
+
+.property-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.match-scroll {
+  margin: 0 -8rpx;
+  white-space: nowrap;
+}
+
+.match-card {
+  width: 460rpx;
+  margin-right: 18rpx;
+  padding: 18rpx;
+}
+
+.advisor-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 28rpx;
+}
+
+.advisor-copy {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}

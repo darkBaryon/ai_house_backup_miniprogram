@@ -1,10 +1,138 @@
-/**app.wxss**/
-.container {
-  height: 100%;
+page {
+  --page-bg: #f6f8fc;
+  --surface: #ffffff;
+  --surface-muted: #eef3fb;
+  --text-primary: #1f2430;
+  --text-secondary: #5b6475;
+  --text-tertiary: #98a2b3;
+  --line: #e7ecf3;
+  --brand: #1f5eff;
+  --brand-soft: #eaf0ff;
+  --accent: #19c2a0;
+  --warn: #f6b94c;
+  --radius-lg: 28rpx;
+  --radius-md: 20rpx;
+  --shadow-card: 0 14rpx 32rpx rgba(31, 74, 159, 0.08);
+}
+
+page {
+  background: var(--page-bg);
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+view,
+text,
+button,
+input,
+scroll-view,
+swiper,
+swiper-item,
+navigator {
+  box-sizing: border-box;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 24rpx 24rpx calc(32rpx + env(safe-area-inset-bottom));
+}
+
+.section {
+  margin-bottom: 24rpx;
+}
+
+.section-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.section-head {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-size: 22rpx;
+}
+
+.card-link {
+  color: var(--brand);
+  font-size: 24rpx;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 176rpx;
+  height: 80rpx;
+  padding: 0 28rpx;
+  border: 0;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #1f5eff 0%, #19c2a0 100%);
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.btn-primary::after,
+.btn-ghost::after {
+  border: 0;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 176rpx;
+  height: 80rpx;
+  padding: 0 28rpx;
+  border: 0;
+  border-radius: 999rpx;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.price-unit {
+  margin-left: 8rpx;
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+.tiny {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+}

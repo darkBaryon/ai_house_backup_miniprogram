@@ -13,15 +13,28 @@ function generateMessageId(): string {
   return Date.now() + '-' + Math.random()
 }
 
+/** 获取或生成并持久化当前用户 ID */
+function getOrGenerateUserId(): string {
+  let userId = wx.getStorageSync('chat_user_id')
+  if (!userId) {
+    userId = 'user_' + Date.now() + Math.random().toString().substring(2, 8)
+    wx.setStorageSync('chat_user_id', userId)
+  }
+  return userId
+}
+
 Page({
   data: {
     messages: [] as ChatMessage[],
     inputValue: '',
     scrollIntoView: '',
+    currentUserId: '',
   },
 
   onLoad() {
     console.log('[CustomerApp] onLoad triggered')
+    const uid = getOrGenerateUserId()
+    this.setData({ currentUserId: uid })
   },
 
   onShow() {
@@ -36,7 +49,7 @@ Page({
 
   sendMessage() {
     console.log('[CustomerApp] sendMessage triggered')
-    const { inputValue, messages } = this.data
+    const { inputValue, messages, currentUserId } = this.data
     const trimmed = (inputValue || '').trim()
     if (!trimmed) {
       console.log('[CustomerApp] sendMessage skipped: empty input')
@@ -61,7 +74,10 @@ Page({
       url: CHAT_API_URL,
       method: 'POST',
       header: { 'content-type': 'application/json' },
-      data: { message: trimmed },
+      data: {
+        user_id: currentUserId,
+        message: trimmed,
+      },
       success: (res) => {
         console.log('[CustomerApp] res.data:', res.data)
         wx.hideLoading()

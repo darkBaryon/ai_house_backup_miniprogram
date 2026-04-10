@@ -1,0 +1,122 @@
+.ai-hero {
+  padding: 30rpx;
+  background:
+    radial-gradient(circle at top right, rgba(25, 194, 160, 0.12), transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+}
+
+.ai-pill {
+  margin-bottom: 16rpx;
+  background: #edf9f5;
+  color: #287467;
+}
+
+.ai-title {
+  margin-bottom: 12rpx;
+  font-size: 38rpx;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ai-copy {
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.prompt-card,
+.chat-card,
+.follow-card {
+  padding: 28rpx;
+}
+
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+}
+
+.prompt-item {
+  padding: 22rpx;
+  border-radius: 24rpx;
+  background: var(--surface-muted);
+}
+
+.prompt-title {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.prompt-desc {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.chat-row {
+  display: flex;
+  margin-bottom: 18rpx;
+}
+
+.chat-assistant {
+  justify-content: flex-start;
+}
+
+.chat-user {
+  justify-content: flex-end;
+}
+
+.chat-bubble {
+  max-width: 82%;
+  padding: 18rpx 22rpx;
+  border-radius: 22rpx;
+  background: var(--surface-muted);
+  color: var(--text-primary);
+  font-size: 24rpx;
+  line-height: 1.7;
+}
+
+.chat-user .chat-bubble {
+  background: var(--brand);
+  color: #ffffff;
+}
+
+.result-card {
+  margin-bottom: 18rpx;
+  padding: 24rpx;
+}
+
+.result-title {
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.result-summary {
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.follow-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-top: 18rpx;
+}
+
+.follow-chip {
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  font-size: 22rpx;
+}
+
+.follow-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}

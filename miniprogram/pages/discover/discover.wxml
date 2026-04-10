@@ -1,0 +1,52 @@
+<view class="page-shell">
+  <view class="search-shell section-card">
+    <view class="search-box">
+      <text class="search-text">搜小区、区域、地铁、学校</text>
+      <text class="search-link">搜索</text>
+    </view>
+    <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="filter-row">
+        <view
+          wx:for="{{filterGroups}}"
+          wx:key="label"
+          class="filter-chip {{item.active ? 'filter-chip-active' : ''}}"
+        >
+          {{item.label}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="smart-bar section">
+    <text class="smart-dot"></text>
+    <text class="smart-copy">{{smartTip}}</text>
+  </view>
+
+  <view wx:for="{{properties}}" wx:key="id" class="list-card section-card" bindtap="openDetail">
+    <view class="list-cover"></view>
+    <view class="list-body">
+      <view class="list-top">
+        <text class="list-title">{{item.title}}</text>
+        <text class="favorite">收藏</text>
+      </view>
+      <view class="list-copy">{{item.district}}</view>
+      <view class="list-copy">{{item.details}}</view>
+      <view class="tag-row">
+        <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+      </view>
+      <view class="list-bottom">
+        <view>
+          <text class="price">{{item.price}}</text>
+          <text class="price-unit">{{item.unitPrice}}</text>
+        </view>
+        <text class="tiny">AI 认为通勤与预算平衡较好</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-card section-card">
+    <view class="section-title">没找到特别合适的？</view>
+    <view class="empty-copy">把条件直接告诉 AI，我们可以继续缩小到更具体的房源范围。</view>
+    <button class="btn-primary" bindtap="goToAi">让 AI 帮我找</button>
+  </view>
+</view>

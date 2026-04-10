@@ -1,12 +1,40 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/home/home",
+    "pages/discover/discover",
+    "pages/ai/ai",
+    "pages/profile/profile",
+    "pages/property-detail/property-detail"
   ],
+  "tabBar": {
+    "color": "#7b8494",
+    "selectedColor": "#1F5EFF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/discover/discover",
+        "text": "找房"
+      },
+      {
+        "pagePath": "pages/ai/ai",
+        "text": "AI顾问"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "智能客服",
-    "navigationBarBackgroundColor": "#ffffff"
+    "navigationBarTitleText": "AI House",
+    "navigationBarBackgroundColor": "#f6f8fc",
+    "backgroundColor": "#f6f8fc"
   },
   "renderer": "webview",
   "style": "v2",

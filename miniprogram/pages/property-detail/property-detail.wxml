@@ -1,0 +1,61 @@
+<view class="detail-page">
+  <swiper class="gallery-swiper" circular indicator-dots autoplay>
+    <swiper-item wx:for="{{gallery}}" wx:key="*this">
+      <view class="gallery-slide"></view>
+    </swiper-item>
+  </swiper>
+
+  <view class="detail-body">
+    <view class="section-card detail-summary">
+      <view class="detail-price-row">
+        <view>
+          <text class="price">798万</text>
+          <text class="price-unit">总价</text>
+        </view>
+        <text class="tiny">单价约 73800 元/㎡</text>
+      </view>
+      <view class="detail-title">静安内环 品质三居，适合一家三口长期居住</view>
+      <view class="feature-grid">
+        <view wx:for="{{features}}" wx:key="label" class="feature-item">
+          <text class="feature-label">{{item.label}}</text>
+          <text class="feature-value">{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card detail-ai-card">
+      <view class="section-title">AI 解读</view>
+      <view class="detail-copy">这套房源的优势在于通勤便利、户型均衡、社区成熟，适合重视生活效率和孩子成长环境的家庭。</view>
+      <view class="detail-copy">需要重点关注的是总价略高于周边平均水平，建议结合学区和装修状态一起比较。</view>
+    </view>
+
+    <view class="section-card detail-tag-card">
+      <view class="section-title">房源标签</view>
+      <view class="tag-row">
+        <text wx:for="{{tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="section-card detail-info-card">
+      <view class="section-title">小区信息</view>
+      <view wx:for="{{communityItems}}" wx:key="label" class="info-row">
+        <text class="info-label">{{item.label}}</text>
+        <text class="info-value">{{item.value}}</text>
+      </view>
+    </view>
+
+    <view class="section-card detail-advisor-card">
+      <view>
+        <view class="section-title">专属顾问</view>
+        <view class="detail-copy">10 分钟内响应，可继续帮你比对周边同价位房源。</view>
+      </view>
+      <button class="btn-ghost">立即咨询</button>
+    </view>
+  </view>
+
+  <view class="action-bar">
+    <view class="action-lite">收藏</view>
+    <view class="action-lite">电话联系</view>
+    <button class="btn-primary action-btn">预约看房</button>
+  </view>
+</view>

@@ -1,0 +1,123 @@
+.detail-page {
+  min-height: 100vh;
+  background: var(--page-bg);
+  padding-bottom: calc(132rpx + env(safe-area-inset-bottom));
+}
+
+.gallery-swiper {
+  height: 520rpx;
+}
+
+.gallery-slide {
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(31, 94, 255, 0.12), rgba(25, 194, 160, 0.18)),
+    linear-gradient(45deg, #dce6ff 0%, #f7fbff 100%);
+}
+
+.detail-body {
+  padding: 24rpx;
+}
+
+.detail-summary,
+.detail-ai-card,
+.detail-tag-card,
+.detail-info-card,
+.detail-advisor-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+}
+
+.detail-price-row,
+.detail-advisor-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.detail-title {
+  margin: 16rpx 0 24rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16rpx;
+}
+
+.feature-item {
+  padding: 18rpx 14rpx;
+  border-radius: 20rpx;
+  background: var(--surface-muted);
+}
+
+.feature-label {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 20rpx;
+  color: var(--text-tertiary);
+}
+
+.feature-value {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.detail-copy {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 18rpx 0;
+  border-top: 1rpx solid var(--line);
+}
+
+.info-row:first-of-type {
+  margin-top: 12rpx;
+}
+
+.info-label {
+  color: var(--text-tertiary);
+}
+
+.info-value {
+  flex: 1;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 18rpx 24rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 -8rpx 24rpx rgba(31, 36, 48, 0.08);
+}
+
+.action-lite {
+  min-width: 112rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.action-btn {
+  flex: 1;
+}
