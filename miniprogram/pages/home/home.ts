@@ -1,68 +1,106 @@
-interface ShortcutItem {
+interface ScenarioItem {
   title: string
   subtitle: string
-  tone: string
+  prompt: string
 }
 
-interface PropertyItem {
-  id: string
+interface HighlightItem {
   title: string
-  location: string
-  meta: string
-  price: string
+  copy: string
+}
+
+interface GuideStep {
+  title: string
+  copy: string
+}
+
+interface SampleMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+interface FutureCard {
+  title: string
+  copy: string
   tags: string[]
 }
 
 Page({
   data: {
     city: '上海',
-    quickFilters: ['近地铁', '低总价', '精装修', 'AI推荐'],
-    shortcuts: [
-      { title: '买新房', subtitle: '刚需改善', tone: 'blue' },
-      { title: '二手房', subtitle: '成熟社区', tone: 'green' },
-      { title: '租房', subtitle: '拎包入住', tone: 'gold' },
-      { title: '地图找房', subtitle: '按位置筛选', tone: 'purple' },
-      { title: '学区找房', subtitle: '教育配套', tone: 'blue' },
-      { title: 'AI选房', subtitle: '智能匹配', tone: 'green' },
-      { title: '降价房源', subtitle: '近期调价', tone: 'gold' },
-      { title: '预约看房', subtitle: '专属带看', tone: 'purple' },
-    ] as ShortcutItem[],
-    todayPicks: [
+    quickFilters: ['近地铁', '押一付一', '整租两居', '可养宠物'],
+    scenarios: [
       {
-        id: 'p-001',
-        title: '静安内环 品质三居',
-        location: '静安区 | 中兴路',
-        meta: '3室2厅 · 108㎡ · 南北通透',
-        price: '798万',
-        tags: ['近地铁', '精装修', 'AI高匹配'],
+        title: '通勤优先',
+        subtitle: '先说上班地点和时长',
+        prompt: '我想租房，优先考虑通勤方便，最好近地铁。',
       },
       {
-        id: 'p-002',
-        title: '浦东花木 改善四居',
-        location: '浦东新区 | 花木',
-        meta: '4室2厅 · 143㎡ · 双阳台',
-        price: '1180万',
-        tags: ['学区配套', '满五', '随时看房'],
-      },
-    ] as PropertyItem[],
-    aiMatches: [
-      {
-        id: 'm-001',
-        title: '预算 500 万内推荐',
-        location: '闵行区 | 七宝',
-        meta: '2室2厅 · 89㎡ · 地铁步行 8 分钟',
-        price: '468万',
-        tags: ['通勤友好', '首付压力低'],
+        title: '预算优先',
+        subtitle: '先控制月租压力',
+        prompt: '我预算有限，请先帮我筛选月租更友好的房源。',
       },
       {
-        id: 'm-002',
-        title: '家庭居住优先推荐',
-        location: '宝山区 | 大场',
-        meta: '3室2厅 · 112㎡ · 社区新',
-        price: '535万',
-        tags: ['儿童友好', '绿化高'],
+        title: '整租优先',
+        subtitle: '适合情侣或两人合住',
+        prompt: '我想找整租两居，最好拎包入住。',
       },
-    ] as PropertyItem[],
+      {
+        title: '标签优先',
+        subtitle: '让 AI 帮你筛标签',
+        prompt: '请优先推荐可养宠物、押一付一的房源。',
+      },
+    ] as ScenarioItem[],
+    highlights: [
+      {
+        title: '不需要先会筛选',
+        copy: '直接说需求，AI 会代替你理解预算、区域、通勤和标签偏好。',
+      },
+      {
+        title: '后端会自动检索房源',
+        copy: '用户聊天时，AI 会触发后端检索，把更匹配的待租房源整理给你。',
+      },
+      {
+        title: '继续追问就能缩小范围',
+        copy: '你可以接着问“只看近地铁”“月租再低一点”“优先押一付一”。',
+      },
+    ] as HighlightItem[],
+    guideSteps: [
+      {
+        title: '告诉 AI 需求',
+        copy: '月租预算、区域、通勤时间、租房标签，说出一部分就可以开始。',
+      },
+      {
+        title: 'AI 自动检索房源',
+        copy: '后端会在聊天过程中解析意图、检索房源，并生成更自然的推荐回复。',
+      },
+      {
+        title: '继续追问与细化',
+        copy: '通过继续聊天逐步缩小选择，不需要自己来回切筛选器。',
+      },
+    ] as GuideStep[],
+    sampleMessages: [
+      {
+        role: 'user',
+        content: '月租 3500 左右，想住近地铁，可养宠物。',
+      },
+      {
+        role: 'assistant',
+        content: '我会优先从待租房源里筛选近地铁、可养宠物、预算友好的选项，并继续帮你缩小范围。',
+      },
+    ] as SampleMessage[],
+    futureCards: [
+      {
+        title: '下一步会接房源卡片',
+        copy: '等后端补充 AI 命中房源的结构化返回后，这里会直接展示可点开的推荐房源卡。',
+        tags: ['AI推荐', '房源联动'],
+      },
+      {
+        title: '我的房源仍然保留',
+        copy: '当前后端已支持房东管理自己的房源，所以“找房”页暂时承担我的房源管理入口。',
+        tags: ['当前可用', '管理入口'],
+      },
+    ] as FutureCard[],
   },
 
   goToDiscover() {
@@ -73,7 +111,15 @@ Page({
     wx.switchTab({ url: '/pages/ai/ai' })
   },
 
-  openPropertyDetail() {
-    wx.navigateTo({ url: '/pages/property-detail/property-detail' })
+  sendScenario(event: WechatMiniprogram.BaseEvent) {
+    const prompt = event.currentTarget.dataset.prompt as string
+
+    if (!prompt) {
+      this.goToAi()
+      return
+    }
+
+    wx.switchTab({ url: '/pages/ai/ai' })
+    wx.setStorageSync('ai_prefill_message', prompt)
   },
 })

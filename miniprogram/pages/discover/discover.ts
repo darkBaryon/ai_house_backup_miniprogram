@@ -1,64 +1,91 @@
+import { fetchPublicPropertyList, PropertyListItem } from '../../services/property'
+
 interface FilterGroup {
   label: string
   active?: boolean
 }
 
-interface DiscoverProperty {
-  id: string
+interface ShowCaseCard {
   title: string
-  district: string
-  details: string
+  meta: string
   price: string
-  unitPrice: string
-  tags: string[]
+  badge: string
 }
 
 Page({
   data: {
+    productHighlights: [
+      '先说需求，再慢慢缩小范围',
+      '客服会继续追问通勤和预算偏好',
+    ],
     filterGroups: [
-      { label: '区域', active: true },
-      { label: '价格' },
-      { label: '户型' },
-      { label: '更多' },
-      { label: '排序' },
+      { label: '整租', active: true },
+      { label: '近地铁' },
+      { label: '押一付一' },
+      { label: '独卫' },
+      { label: '可养宠物' },
+      { label: '随时看房' },
     ] as FilterGroup[],
-    smartTip: '根据你的浏览习惯，优先推荐地铁 15 分钟内、总价 600 万左右的三居。',
-    properties: [
+    smartTip: '公开房源接口补齐后，这里会直接切成可浏览的找房列表；当前更推荐先去咨询。',
+    recommendCards: [] as PropertyListItem[],
+    recommendLoading: true,
+    recommendLoadFailed: false,
+    showCaseCards: [
       {
-        id: 'd-001',
-        title: '大宁板块 通透三居',
-        district: '静安区 · 大宁',
-        details: '3室2厅 · 106㎡ · 南北通透 · 中楼层',
-        price: '768万',
-        unitPrice: '72500元/㎡',
-        tags: ['近地铁', '满二', 'AI高匹配'],
+        title: '通勤优先',
+        meta: '适合上班族，先看地铁和通勤时间',
+        price: '先说公司位置和预算',
+        badge: '高频需求',
       },
       {
-        id: 'd-002',
-        title: '前滩次新房 改善两居',
-        district: '浦东新区 · 前滩',
-        details: '2室2厅 · 92㎡ · 精装修 · 采光好',
-        price: '830万',
-        unitPrice: '90200元/㎡',
-        tags: ['品质社区', '随时看房', '精装修'],
+        title: '预算敏感',
+        meta: '适合第一次租房，先控总预算和付款方式',
+        price: '再细化整租 / 合租',
+        badge: '省心路线',
       },
-      {
-        id: 'd-003',
-        title: '七宝成熟社区 家庭三居',
-        district: '闵行区 · 七宝',
-        details: '3室2厅 · 118㎡ · 近商圈 · 双卫',
-        price: '598万',
-        unitPrice: '50600元/㎡',
-        tags: ['预算友好', '生活方便', '儿童友好'],
-      },
-    ] as DiscoverProperty[],
+    ] as ShowCaseCard[],
   },
 
-  openDetail() {
-    wx.navigateTo({ url: '/pages/property-detail/property-detail' })
+  onLoad() {
+    this.loadRecommendCards()
   },
 
   goToAi() {
     wx.switchTab({ url: '/pages/ai/ai' })
+  },
+
+  openDetail(event: WechatMiniprogram.BaseEvent) {
+    const id = event.currentTarget.dataset.id as string
+
+    if (!id) {
+      return
+    }
+
+    wx.navigateTo({ url: `/pages/property-detail/property-detail?id=${id}` })
+  },
+
+  loadRecommendCards() {
+    this.setData({
+      recommendLoading: true,
+      recommendLoadFailed: false,
+    })
+
+    fetchPublicPropertyList({
+      page: 1,
+      limit: 2,
+    })
+      .then((list) => {
+        this.setData({
+          recommendCards: list.slice(0, 2),
+          recommendLoading: false,
+          recommendLoadFailed: false,
+        })
+      })
+      .catch(() => {
+        this.setData({
+          recommendLoading: false,
+          recommendLoadFailed: true,
+        })
+      })
   },
 })

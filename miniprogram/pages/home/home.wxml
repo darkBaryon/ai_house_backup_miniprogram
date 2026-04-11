@@ -6,14 +6,14 @@
           <text class="brand-badge">AI House</text>
           <text class="city-switch">{{city}}</text>
         </view>
-        <view class="hero-title">更聪明地找房，少走弯路</view>
-        <view class="hero-copy">把预算、区域和居住需求交给 AI，我们先帮你缩小选择范围。</view>
+        <view class="hero-title">先和 AI 聊，再让 AI 帮你找房</view>
+        <view class="hero-copy">这个小程序的主要找房方式不是手动筛选，而是在聊天中让 AI 理解你的需求、检索房源并逐步缩小范围。</view>
       </view>
     </view>
 
-    <view class="search-bar" bindtap="goToDiscover">
-      <text class="search-placeholder">搜小区、区域、地铁、户型</text>
-      <text class="search-action">去找房</text>
+    <view class="search-bar" bindtap="goToAi">
+      <text class="search-placeholder">例如：月租 3500，近地铁，可养宠物</text>
+      <text class="search-action">开始聊</text>
     </view>
 
     <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
@@ -24,8 +24,8 @@
 
     <view class="ai-banner">
       <view>
-        <view class="ai-banner-title">告诉 AI 你的需求</view>
-        <view class="ai-banner-copy">比如“预算 600 万，想要近地铁、适合一家三口”</view>
+        <view class="ai-banner-title">AI 会替你做两件事</view>
+        <view class="ai-banner-copy">理解需求，自动检索房源。你负责说需求，筛选和缩小范围交给 AI。</view>
       </view>
       <button class="btn-primary" bindtap="goToAi">立即开始</button>
     </view>
@@ -33,65 +33,78 @@
 
   <view class="section section-card shortcut-card">
     <view class="section-head">
-      <text class="section-title">快捷入口</text>
-      <text class="section-subtitle">常用找房场景</text>
+      <text class="section-title">从这些需求开始</text>
+      <text class="section-subtitle">一键把问题发给 AI</text>
     </view>
-    <view class="shortcut-grid">
-      <view wx:for="{{shortcuts}}" wx:key="title" class="shortcut-item shortcut-{{item.tone}}">
+    <view class="scenario-grid">
+      <view
+        wx:for="{{scenarios}}"
+        wx:key="title"
+        class="scenario-item"
+        bindtap="sendScenario"
+        data-prompt="{{item.prompt}}"
+      >
         <text class="shortcut-title">{{item.title}}</text>
         <text class="shortcut-subtitle">{{item.subtitle}}</text>
       </view>
     </view>
   </view>
 
-  <view class="section">
+  <view class="section section-card value-card">
     <view class="section-head">
-      <text class="section-title">今日推荐</text>
-      <text class="card-link" bindtap="goToDiscover">查看全部</text>
+      <text class="section-title">为什么先聊再找</text>
+      <text class="section-subtitle">更符合当前产品主路径</text>
     </view>
-    <view wx:for="{{todayPicks}}" wx:key="id" class="property-card section-card" bindtap="openPropertyDetail">
-      <view class="property-cover cover-blue"></view>
-      <view class="property-body">
-        <view class="property-title">{{item.title}}</view>
-        <view class="property-copy">{{item.location}}</view>
-        <view class="property-copy">{{item.meta}}</view>
-        <view class="tag-row">
-          <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
-        </view>
-        <view class="property-price-row">
-          <text class="price">{{item.price}}</text>
-          <text class="tiny">AI 认为这类房源兼顾通勤和家庭居住</text>
-        </view>
+    <view wx:for="{{highlights}}" wx:key="title" class="value-item">
+      <view class="value-item-title">{{item.title}}</view>
+      <view class="value-item-copy">{{item.copy}}</view>
+    </view>
+  </view>
+
+  <view class="section section-card flow-card">
+    <view class="section-head">
+      <text class="section-title">AI 找房怎么工作</text>
+      <text class="section-subtitle">当前产品逻辑</text>
+    </view>
+    <view wx:for="{{guideSteps}}" wx:key="title" class="flow-step">
+      <view class="flow-index">{{index + 1}}</view>
+      <view class="flow-content">
+        <view class="flow-title">{{item.title}}</view>
+        <view class="flow-copy">{{item.copy}}</view>
       </view>
     </view>
   </view>
 
+  <view class="section section-card sample-card">
+    <view class="section-head">
+      <text class="section-title">示例对话</text>
+      <text class="section-subtitle">用户应该怎么开口</text>
+    </view>
+    <view wx:for="{{sampleMessages}}" wx:key="content" class="sample-row sample-{{item.role}}">
+      <view class="sample-bubble">{{item.content}}</view>
+    </view>
+    <button class="btn-primary sample-btn" bindtap="goToAi">去咨询页继续聊</button>
+  </view>
+
   <view class="section">
     <view class="section-head">
-      <text class="section-title">AI 猜你喜欢</text>
-      <text class="section-subtitle">根据目标预算生成</text>
+      <text class="section-title">当前能力边界</text>
+      <text class="card-link" bindtap="goToDiscover">查看我的房源</text>
     </view>
-    <scroll-view class="match-scroll" scroll-x enhanced show-scrollbar="{{false}}">
-      <view class="match-row">
-        <view wx:for="{{aiMatches}}" wx:key="id" class="match-card section-card" bindtap="openPropertyDetail">
-          <view class="match-cover cover-green"></view>
-          <view class="match-title">{{item.title}}</view>
-          <view class="match-copy">{{item.location}}</view>
-          <view class="match-copy">{{item.meta}}</view>
-          <view class="tag-row">
-            <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
-          </view>
-          <text class="price">{{item.price}}</text>
-        </view>
+    <view wx:for="{{futureCards}}" wx:key="title" class="future-card section-card">
+      <view class="match-title">{{item.title}}</view>
+      <view class="match-copy">{{item.copy}}</view>
+      <view class="tag-row">
+        <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
       </view>
-    </scroll-view>
+    </view>
   </view>
 
   <view class="section section-card advisor-card">
     <view>
-      <view class="section-title">专属顾问 10 分钟内响应</view>
-      <view class="advisor-copy">如果你已经有明确预算和区域，我们可以继续帮你细化到具体小区和户型。</view>
+      <view class="section-title">当前建议的使用方式</view>
+      <view class="advisor-copy">租客先从咨询页进入，房东或测试账号可以从“找房”页查看自己的房源管理结果。</view>
     </view>
-    <button class="btn-ghost" bindtap="goToAi">立即咨询</button>
+    <button class="btn-ghost" bindtap="goToDiscover">我的房源</button>
   </view>
 </view>

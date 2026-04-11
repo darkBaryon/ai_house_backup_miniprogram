@@ -1,5 +1,5 @@
 // index.ts
-const CHAT_API_URL = 'http://127.0.0.1:5000/chat'
+const CHAT_API_URL = 'http://127.0.0.1:5000/api/v1/chat/send'
 
 /** 单条消息：唯一 id + 内容 + 是否用户发送 */
 interface ChatMessage {

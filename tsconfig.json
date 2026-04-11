@@ -3,7 +3,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "module": "CommonJS",
-    "target": "ES2020",
+    "target": "ES2017",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -16,13 +16,19 @@
     "noUnusedParameters": true,
     "strict": true,
     "strictPropertyInitialization": true,
-    "lib": ["ES2020"],
+    "lib": [
+      "ES2015",
+      "ES2016",
+      "ES2017"
+    ],
+    "skipLibCheck": true,
     "typeRoots": [
       "./typings"
     ]
   },
   "include": [
-    "./**/*.ts"
+    "./**/*.ts",
+    "./**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/discover/discover",
+    "pages/home/home",
     "pages/ai/ai",
     "pages/profile/profile",
     "pages/property-detail/property-detail"
@@ -10,19 +10,15 @@
     "color": "#7b8494",
     "selectedColor": "#1F5EFF",
     "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
-      {
-        "pagePath": "pages/home/home",
-        "text": "首页"
-      },
       {
         "pagePath": "pages/discover/discover",
         "text": "找房"
       },
       {
         "pagePath": "pages/ai/ai",
-        "text": "AI顾问"
+        "text": "咨询"
       },
       {
         "pagePath": "pages/profile/profile",

@@ -1,8 +1,62 @@
 <view class="page-shell">
+  <view class="discover-hero section-card">
+    <view class="discover-brand-row">
+      <text class="discover-brand">AI House</text>
+      <text class="discover-brand-copy">更像真人客服的租房咨询小程序</text>
+    </view>
+    <view class="discover-title">聊天找房，比自己乱筛更省时间</view>
+    <view class="discover-highlight-list">
+      <view wx:for="{{productHighlights}}" wx:key="*this" class="discover-highlight-item">{{item}}</view>
+    </view>
+    <view class="discover-cta-row">
+      <button class="btn-primary discover-cta" bindtap="goToAi">立即咨询</button>
+      <view class="discover-cta-note">和客服聊两句就能开始</view>
+    </view>
+  </view>
+
+  <view class="section section-card recommend-shell">
+    <view class="section-head">
+      <text class="section-title">先看两套推荐</text>
+      <text class="section-subtitle">后续会切成真实公开房源</text>
+    </view>
+    <view wx:if="{{recommendLoading}}" class="recommend-state">正在加载推荐房源...</view>
+    <view wx:elif="{{recommendLoadFailed}}" class="recommend-state recommend-state-error">推荐房源加载失败，你也可以先去咨询。</view>
+    <view wx:elif="{{recommendCards.length > 0}}" class="recommend-grid">
+      <view
+        wx:for="{{recommendCards}}"
+        wx:key="id"
+        class="recommend-card"
+        data-id="{{item.id}}"
+        bindtap="openDetail"
+      >
+        <view wx:if="{{item.cover}}" class="recommend-cover-image-wrap">
+          <image class="recommend-cover-image" src="{{item.cover}}" mode="aspectFill" />
+          <text wx:if="{{item.tags.length > 0}}" class="recommend-tag">{{item.tags[0]}}</text>
+        </view>
+        <view wx:else class="recommend-cover">
+          <text class="recommend-tag">{{item.statusText}}</text>
+        </view>
+        <view class="recommend-body">
+          <text class="recommend-area">{{item.district}}</text>
+          <text class="recommend-title">{{item.title}}</text>
+          <text class="recommend-detail">{{item.summary}}</text>
+          <view class="recommend-price-row">
+            <text class="recommend-price">{{item.priceText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="recommend-state">暂时还没有查到推荐房源，先去咨询也很合适。</view>
+  </view>
+
   <view class="search-shell section-card">
+    <view class="section-head">
+      <text class="section-title">未来公开找房入口</text>
+      <text class="section-subtitle">接口补齐后直接启用</text>
+    </view>
     <view class="search-box">
-      <text class="search-text">搜小区、区域、地铁、学校</text>
-      <text class="search-link">搜索</text>
+      <text class="search-text">商圈 / 小区 / 地铁 / 地点</text>
+      <text class="search-link">即将开放</text>
     </view>
     <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="filter-row">
@@ -22,31 +76,26 @@
     <text class="smart-copy">{{smartTip}}</text>
   </view>
 
-  <view wx:for="{{properties}}" wx:key="id" class="list-card section-card" bindtap="openDetail">
-    <view class="list-cover"></view>
-    <view class="list-body">
-      <view class="list-top">
-        <text class="list-title">{{item.title}}</text>
-        <text class="favorite">收藏</text>
-      </view>
-      <view class="list-copy">{{item.district}}</view>
-      <view class="list-copy">{{item.details}}</view>
-      <view class="tag-row">
-        <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
-      </view>
-      <view class="list-bottom">
-        <view>
-          <text class="price">{{item.price}}</text>
-          <text class="price-unit">{{item.unitPrice}}</text>
+  <view class="section section-card discover-showcase-card">
+    <view class="section-head">
+      <text class="section-title">更适合这样找房</text>
+      <text class="section-subtitle">不用一上来填满所有条件</text>
+    </view>
+    <view class="showcase-grid">
+      <view wx:for="{{showCaseCards}}" wx:key="title" class="showcase-item">
+        <view class="showcase-item-inner">
+          <text class="showcase-badge">{{item.badge}}</text>
+          <text class="showcase-title">{{item.title}}</text>
+          <text class="showcase-meta">{{item.meta}}</text>
+          <text class="showcase-price">{{item.price}}</text>
         </view>
-        <text class="tiny">AI 认为通勤与预算平衡较好</text>
       </view>
     </view>
   </view>
 
-  <view class="empty-card section-card">
-    <view class="section-title">没找到特别合适的？</view>
-    <view class="empty-copy">把条件直接告诉 AI，我们可以继续缩小到更具体的房源范围。</view>
-    <button class="btn-primary" bindtap="goToAi">让 AI 帮我找</button>
+  <view class="empty-card section-card discover-guide-card">
+    <view class="section-title">公开房源列表即将开放</view>
+    <view class="empty-copy">现在最顺的方式还是先去咨询，让客服根据你的需求继续帮你找房。</view>
+    <button class="btn-primary" bindtap="goToAi">去咨询</button>
   </view>
 </view>

@@ -1,61 +1,72 @@
 <view class="detail-page">
-  <swiper class="gallery-swiper" circular indicator-dots autoplay>
-    <swiper-item wx:for="{{gallery}}" wx:key="*this">
-      <view class="gallery-slide"></view>
-    </swiper-item>
-  </swiper>
-
-  <view class="detail-body">
+  <view wx:if="{{loading}}" class="detail-body">
     <view class="section-card detail-summary">
-      <view class="detail-price-row">
+      <view class="section-title">房源详情加载中</view>
+      <view class="detail-copy">正在从后端读取当前房源信息。</view>
+    </view>
+  </view>
+
+  <view wx:elif="{{loadFailed}}" class="detail-body">
+    <view class="section-card detail-summary">
+      <view class="section-title">房源详情加载失败</view>
+      <view class="detail-copy">当前详情页会临时通过 `/api/v1/house/search` 结果兜底查找房源。若失败，请检查房源 ID 是否仍能在公开搜索结果中查到。</view>
+    </view>
+  </view>
+
+  <block wx:else>
+    <swiper wx:if="{{gallery.length > 0}}" class="gallery-swiper" circular indicator-dots autoplay>
+      <swiper-item wx:for="{{gallery}}" wx:key="*this">
+        <image class="gallery-image" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+    <view wx:else class="gallery-placeholder"></view>
+
+    <view class="detail-body">
+      <view class="section-card detail-summary">
+        <view class="detail-price-row">
+          <view>
+            <text class="price">{{priceText}}</text>
+            <text class="price-unit">月租</text>
+          </view>
+          <text class="tiny">当前通过公开搜索结果临时兜底展示</text>
+        </view>
+        <view class="detail-title">{{title}}</view>
+        <view class="feature-grid">
+          <view wx:for="{{features}}" wx:key="label" class="feature-item">
+            <text class="feature-label">{{item.label}}</text>
+            <text class="feature-value">{{item.value}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="section-card detail-ai-card">
+        <view class="section-title">说明</view>
+        <view class="detail-copy">当前公开房源详情接口还没补齐，这里先通过公开搜索结果做临时详情展示。</view>
+        <view class="detail-copy">后续后端补上正式的 `/api/v1/house/detail` 后，这里会直接切回真正的详情请求。</view>
+      </view>
+
+      <view class="section-card detail-tag-card">
+        <view class="section-title">房源标签</view>
+        <view class="tag-row">
+          <text wx:for="{{tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="section-card detail-info-card">
+        <view class="section-title">详细信息</view>
+        <view wx:for="{{infoItems}}" wx:key="label" class="info-row">
+          <text class="info-label">{{item.label}}</text>
+          <text class="info-value">{{item.value}}</text>
+        </view>
+      </view>
+
+      <view class="section-card detail-advisor-card">
         <view>
-          <text class="price">798万</text>
-          <text class="price-unit">总价</text>
+          <view class="section-title">下一步建议</view>
+          <view class="detail-copy">如果你要继续做租客端体验，下一步最需要后端补的是公开房源列表和公开房源详情接口。</view>
         </view>
-        <text class="tiny">单价约 73800 元/㎡</text>
-      </view>
-      <view class="detail-title">静安内环 品质三居，适合一家三口长期居住</view>
-      <view class="feature-grid">
-        <view wx:for="{{features}}" wx:key="label" class="feature-item">
-          <text class="feature-label">{{item.label}}</text>
-          <text class="feature-value">{{item.value}}</text>
-        </view>
+        <button class="btn-ghost">继续联调</button>
       </view>
     </view>
-
-    <view class="section-card detail-ai-card">
-      <view class="section-title">AI 解读</view>
-      <view class="detail-copy">这套房源的优势在于通勤便利、户型均衡、社区成熟，适合重视生活效率和孩子成长环境的家庭。</view>
-      <view class="detail-copy">需要重点关注的是总价略高于周边平均水平，建议结合学区和装修状态一起比较。</view>
-    </view>
-
-    <view class="section-card detail-tag-card">
-      <view class="section-title">房源标签</view>
-      <view class="tag-row">
-        <text wx:for="{{tags}}" wx:key="*this" class="property-tag">{{item}}</text>
-      </view>
-    </view>
-
-    <view class="section-card detail-info-card">
-      <view class="section-title">小区信息</view>
-      <view wx:for="{{communityItems}}" wx:key="label" class="info-row">
-        <text class="info-label">{{item.label}}</text>
-        <text class="info-value">{{item.value}}</text>
-      </view>
-    </view>
-
-    <view class="section-card detail-advisor-card">
-      <view>
-        <view class="section-title">专属顾问</view>
-        <view class="detail-copy">10 分钟内响应，可继续帮你比对周边同价位房源。</view>
-      </view>
-      <button class="btn-ghost">立即咨询</button>
-    </view>
-  </view>
-
-  <view class="action-bar">
-    <view class="action-lite">收藏</view>
-    <view class="action-lite">电话联系</view>
-    <button class="btn-primary action-btn">预约看房</button>
-  </view>
+  </block>
 </view>
