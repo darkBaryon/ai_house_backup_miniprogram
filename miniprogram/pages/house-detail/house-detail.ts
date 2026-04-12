@@ -1,4 +1,4 @@
-import { fetchPublicPropertyDetail, RawHouseItem } from '../../services/property'
+import { fetchPublicHouseDetail, RawHouseItem } from '../../services/house'
 
 interface FeatureItem {
   label: string
@@ -63,7 +63,7 @@ Page({
       loadFailed: false,
     })
 
-    fetchPublicPropertyDetail(houseId)
+    fetchPublicHouseDetail(houseId)
       .then((house) => {
         this.setData({
           title: `${house.location} ${house.type}`,

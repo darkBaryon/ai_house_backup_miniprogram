@@ -1,10 +1,9 @@
 {
   "pages": [
     "pages/discover/discover",
-    "pages/home/home",
     "pages/ai/ai",
     "pages/profile/profile",
-    "pages/property-detail/property-detail"
+    "pages/house-detail/house-detail"
   ],
   "tabBar": {
     "color": "#7b8494",

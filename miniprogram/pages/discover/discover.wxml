@@ -17,7 +17,6 @@
   <view class="section section-card recommend-shell">
     <view class="section-head">
       <text class="section-title">先看两套推荐</text>
-      <text class="section-subtitle">后续会切成真实公开房源</text>
     </view>
     <view wx:if="{{recommendLoading}}" class="recommend-state">正在加载推荐房源...</view>
     <view wx:elif="{{recommendLoadFailed}}" class="recommend-state recommend-state-error">推荐房源加载失败，你也可以先去咨询。</view>

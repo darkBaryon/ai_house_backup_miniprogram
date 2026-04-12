@@ -1,4 +1,4 @@
-import { fetchPublicPropertyList, PropertyListItem } from '../../services/property'
+import { fetchPublicHouseList, HouseListItem } from '../../services/house'
 
 interface FilterGroup {
   label: string
@@ -27,7 +27,7 @@ Page({
       { label: '随时看房' },
     ] as FilterGroup[],
     smartTip: '公开房源接口补齐后，这里会直接切成可浏览的找房列表；当前更推荐先去咨询。',
-    recommendCards: [] as PropertyListItem[],
+    recommendCards: [] as HouseListItem[],
     recommendLoading: true,
     recommendLoadFailed: false,
     showCaseCards: [
@@ -61,7 +61,7 @@ Page({
       return
     }
 
-    wx.navigateTo({ url: `/pages/property-detail/property-detail?id=${id}` })
+    wx.navigateTo({ url: `/pages/house-detail/house-detail?id=${id}` })
   },
 
   loadRecommendCards() {
@@ -70,7 +70,7 @@ Page({
       recommendLoadFailed: false,
     })
 
-    fetchPublicPropertyList({
+    fetchPublicHouseList({
       page: 1,
       limit: 2,
     })

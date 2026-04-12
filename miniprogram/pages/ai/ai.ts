@@ -1,64 +1,10 @@
 import { ChatMessageItem, sendChatMessage } from '../../services/chat'
+import { fetchPublicHouseList, HouseListItem } from '../../services/house'
 
 interface PromptItem {
   title: string
   desc: string
   text: string
-}
-
-interface InsightCard {
-  title: string
-  copy: string
-}
-
-interface ResultCard {
-  title: string
-  copy: string
-  tags: string[]
-}
-
-interface SessionCardData {
-  sessionId: string
-  stateText: string
-  requirementTextList: string[]
-}
-
-function buildInsightCards(message: string): InsightCard[] {
-  if (!message) {
-    return [
-      {
-        title: '等待 AI 输出',
-        copy: '当你发出需求后，这里会展示 AI 当前判断出的重点信息和下一步方向。',
-      },
-    ]
-  }
-
-  return [
-    {
-      title: 'AI 最新理解',
-      copy: message,
-    },
-  ]
-}
-
-function buildResultCards(message: string): ResultCard[] {
-  if (!message) {
-    return [
-      {
-        title: '推荐结果容器已就绪',
-        copy: '等后端补充结构化房源返回后，这里会直接展示 AI 命中的房源卡片。',
-        tags: ['待接入', '房源卡片'],
-      },
-    ]
-  }
-
-  return [
-    {
-      title: '当前推荐摘要',
-      copy: message,
-      tags: ['AI回复', '可继续追问'],
-    },
-  ]
 }
 
 Page({
@@ -80,17 +26,17 @@ Page({
         timestamp: Date.now(),
       },
     ] as ChatMessageItem[],
-    sessionCard: {
-      sessionId: '',
-      stateText: '聊天接口已接通，当前版本未返回会话元数据',
-      requirementTextList: [],
-    } as SessionCardData,
-    insightCards: buildInsightCards(''),
-    resultCards: buildResultCards(''),
+    houseCards: [] as HouseListItem[],
+    houseLoading: false,
+    houseLoadFailed: false,
     followUps: ['帮我筛选近地铁', '只看 3000 元以内', '优先押一付一', '可养宠物'],
     promptCollapsed: false,
     inputValue: '',
     sending: false,
+  },
+
+  onLoad() {
+    this.loadHouseCards()
   },
 
   onShow() {
@@ -139,6 +85,52 @@ Page({
     })
   },
 
+  openDetail(event: WechatMiniprogram.BaseEvent) {
+    const id = event.currentTarget.dataset.id as string
+
+    if (!id) {
+      return
+    }
+
+    wx.navigateTo({ url: `/pages/house-detail/house-detail?id=${id}` })
+  },
+
+  loadHouseCards(keyword?: string) {
+    this.setData({
+      houseLoading: true,
+      houseLoadFailed: false,
+    })
+
+    fetchPublicHouseList({
+      keyword: keyword || '',
+      page: 1,
+      limit: 2,
+    })
+      .then((list) => {
+        if (keyword && list.length === 0) {
+          return fetchPublicHouseList({
+            page: 1,
+            limit: 2,
+          })
+        }
+
+        return list
+      })
+      .then((list) => {
+        this.setData({
+          houseCards: list.slice(0, 2),
+          houseLoading: false,
+          houseLoadFailed: false,
+        })
+      })
+      .catch(() => {
+        this.setData({
+          houseLoading: false,
+          houseLoadFailed: true,
+        })
+      })
+  },
+
   sendMessage(rawText: string) {
     const text = (rawText || '').trim()
 
@@ -162,21 +154,17 @@ Page({
     })
 
     sendChatMessage(text)
-      .then((result) => {
-        const nextMessages = result.assistantMessage
-          ? [...currentMessages, userMessage, result.assistantMessage]
+      .then((assistantMessage) => {
+        const nextMessages = assistantMessage
+          ? [...currentMessages, userMessage, assistantMessage]
           : [...currentMessages, userMessage]
-        const latestAssistantText = result.assistantMessage
-          ? result.assistantMessage.content
-          : ''
 
         this.setData({
           messages: nextMessages,
-          sessionCard: result.session,
-          insightCards: buildInsightCards(latestAssistantText),
-          resultCards: buildResultCards(latestAssistantText),
           sending: false,
         })
+
+        this.loadHouseCards(text)
       })
       .catch(() => {
         this.setData({

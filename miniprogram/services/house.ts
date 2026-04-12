@@ -1,10 +1,5 @@
+import { API_ENDPOINTS } from '../api/endpoints'
 import request from '../utils/request'
-
-const PROPERTY_API = {
-  publicList: '/house/search',
-  myList: '/house/list',
-  myDetail: '/house/detail',
-}
 
 export interface RawHouseItem {
   house_id?: string
@@ -39,7 +34,7 @@ export interface HouseListParams {
   status?: number
 }
 
-export interface PropertyListItem {
+export interface HouseListItem {
   id: string
   title: string
   district: string
@@ -71,7 +66,7 @@ function normalizeHouseList(data: HouseListPayload | RawHouseItem[]): RawHouseIt
   return []
 }
 
-function buildPropertySummary(tags: string[], location: string): string {
+function buildHouseSummary(tags: string[], location: string): string {
   if (tags.length > 0) {
     return `亮点：${tags.slice(0, 2).join(' / ')}`
   }
@@ -90,7 +85,7 @@ function getHouseStatusText(status: number): string {
   return '下架'
 }
 
-function adaptHouseToCard(house: RawHouseItem): PropertyListItem {
+function adaptHouseToCard(house: RawHouseItem): HouseListItem {
   const tags = house.tags || []
   const district = house.area ? `${house.area} · ${house.location}` : house.location
   const statusText = getHouseStatusText(house.status)
@@ -105,7 +100,7 @@ function adaptHouseToCard(house: RawHouseItem): PropertyListItem {
     priceText: `¥${house.price}/月`,
     tags,
     cover: house.images && house.images.length > 0 ? house.images[0] : '',
-    summary: buildPropertySummary(tags, house.location),
+    summary: buildHouseSummary(tags, house.location),
     statusText,
   }
 }
@@ -127,34 +122,21 @@ function buildPublicSearchPayload(params?: HouseListParams): WechatMiniprogram.I
   }
 }
 
-export function fetchPublicPropertyList(
+export function fetchPublicHouseList(
   params?: HouseListParams
-): Promise<PropertyListItem[]> {
+): Promise<HouseListItem[]> {
   return request<HouseListPayload | RawHouseItem[]>({
-    url: PROPERTY_API.publicList,
+    url: API_ENDPOINTS.house.search,
     data: buildPublicSearchPayload(params),
   }).then((data) => {
     return normalizeHouseList(data).map(adaptHouseToCard)
   })
 }
 
-export function fetchMyPropertyList(
-  params?: HouseListParams
-): Promise<PropertyListItem[]> {
-  return request<HouseListPayload | RawHouseItem[]>({
-    url: PROPERTY_API.myList,
-    data: {
-      ...(params || {}),
-    },
-  }).then((data) => {
-    return normalizeHouseList(data).map(adaptHouseToCard)
-  })
-}
-
-export function fetchPublicPropertyDetail(id: string): Promise<RawHouseItem> {
+export function fetchPublicHouseDetail(id: string): Promise<RawHouseItem> {
   // 临时兜底：当前公开 detail 未就绪，先通过公开 search 拉取列表后按 id 命中。
   return request<HouseListPayload | RawHouseItem[]>({
-    url: PROPERTY_API.publicList,
+    url: API_ENDPOINTS.house.search,
     data: buildPublicSearchPayload({
       page: 1,
       limit: 20,
@@ -167,12 +149,5 @@ export function fetchPublicPropertyDetail(id: string): Promise<RawHouseItem> {
     }
 
     return house
-  })
-}
-
-export function fetchMyPropertyDetail(id: string): Promise<RawHouseItem> {
-  return request<RawHouseItem>({
-    url: PROPERTY_API.myDetail,
-    data: { house_id: id },
   })
 }

@@ -1,4 +1,4 @@
-import request from './utils/request'
+import { wechatLogin } from './services/auth'
 
 App<IAppOption>({
   globalData: {
@@ -18,11 +18,8 @@ App<IAppOption>({
           return
         }
 
-        request<{ token: string }>({
-          url: '/auth/wechat_login',
-          data: { code },
-        })
-          .then((loginData: { token: string }) => {
+        wechatLogin(code)
+          .then((loginData) => {
             const token = loginData && loginData.token ? loginData.token : ''
 
             if (!token) {

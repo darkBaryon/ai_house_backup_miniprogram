@@ -1,4 +1,0 @@
-<!--logs.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view wx:for="{{logs}}" wx:key="timeStamp" class="log-item">{{index + 1}}. {{item.date}}</view>
-</scroll-view>

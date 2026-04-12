@@ -48,7 +48,7 @@
       <view class="section-card detail-tag-card">
         <view class="section-title">房源标签</view>
         <view class="tag-row">
-          <text wx:for="{{tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+          <text wx:for="{{tags}}" wx:key="*this" class="house-tag">{{item}}</text>
         </view>
       </view>
 

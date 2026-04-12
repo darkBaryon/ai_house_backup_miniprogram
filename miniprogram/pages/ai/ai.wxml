@@ -7,19 +7,40 @@
 
   <scroll-view class="ai-chat-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     <view class="ai-chat-list">
-      <view wx:if="{{sessionCard.requirementTextList.length > 0}}" class="ai-chat-status">
-        <text wx:for="{{sessionCard.requirementTextList}}" wx:key="*this" class="follow-chip">{{item}}</text>
-      </view>
-
       <view wx:for="{{messages}}" wx:key="id" class="chat-row chat-{{item.role}}">
         <view class="chat-bubble">{{item.content}}</view>
       </view>
 
-      <view wx:for="{{resultCards}}" wx:key="title" class="result-inline-card">
-        <view class="result-title">{{item.title}}</view>
-        <view class="result-summary">{{item.copy}}</view>
-        <view class="tag-row">
-          <text wx:for="{{item.tags}}" wx:key="*this" class="property-tag">{{item}}</text>
+      <view class="house-inline-panel">
+        <view class="result-title">房源信息</view>
+        <view wx:if="{{houseLoading}}" class="result-summary">正在为你整理房源...</view>
+        <view wx:elif="{{houseLoadFailed}}" class="result-summary">房源加载失败，你可以继续追问或稍后再试。</view>
+        <view wx:elif="{{houseCards.length === 0}}" class="result-summary">暂时还没有匹配到房源，你可以继续补充预算、区域或通勤要求。</view>
+        <view wx:else class="house-card-list">
+          <view
+            wx:for="{{houseCards}}"
+            wx:key="id"
+            class="house-inline-card"
+            data-id="{{item.id}}"
+            bindtap="openDetail"
+          >
+            <view wx:if="{{item.cover}}" class="house-inline-cover-wrap">
+              <image class="house-inline-cover" src="{{item.cover}}" mode="aspectFill" />
+            </view>
+            <view wx:else class="house-inline-cover house-inline-cover-placeholder"></view>
+            <view class="house-inline-body">
+              <view class="house-inline-title">{{item.title}}</view>
+              <view class="house-inline-copy">{{item.district}}</view>
+              <view class="house-inline-copy">{{item.summary}}</view>
+              <view class="house-inline-bottom">
+                <text class="house-inline-price">{{item.priceText}}</text>
+                <text class="house-inline-link">查看详情</text>
+              </view>
+              <view class="tag-row">
+                <text wx:for="{{item.tags}}" wx:key="*this" class="house-tag">{{item}}</text>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -60,7 +81,7 @@
     <view class="input-wrap">
       <input
         class="chat-input"
-        placeholder="输入你的租房需求，例如：月租 3500，近地铁，可养宠物"
+        placeholder="输入你的租房需求"
         value="{{inputValue}}"
         bindinput="onInput"
         bindconfirm="submitInput"
