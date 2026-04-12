@@ -10,11 +10,34 @@ interface InfoItem {
   value: string
 }
 
+function getRentModeText(mode: RawHouseItem['rent_mode']): string {
+  if (mode === 'whole') {
+    return '整租'
+  }
+  if (mode === 'shared') {
+    return '合租'
+  }
+  return '-'
+}
+
+function getLayoutText(house: RawHouseItem): string {
+  if (typeof house.room_count === 'number') {
+    const hall =
+      typeof house.hall_count === 'number' && house.hall_count >= 0
+        ? `${house.hall_count}厅`
+        : ''
+    return `${house.room_count}室${hall}`
+  }
+
+  return '-'
+}
+
 function buildFeatures(house: RawHouseItem): FeatureItem[] {
   return [
     { label: '区域', value: house.area || '-' },
     { label: '位置', value: house.location || '-' },
-    { label: '户型', value: house.type || '-' },
+    { label: '租住方式', value: getRentModeText(house.rent_mode) },
+    { label: '户型', value: getLayoutText(house) },
     { label: '状态', value: house.status === 1 ? '待租' : house.status === 2 ? '已租' : '下架' },
   ]
 }
@@ -66,7 +89,7 @@ Page({
     fetchPublicHouseDetail(houseId)
       .then((house) => {
         this.setData({
-          title: `${house.location} ${house.type}`,
+          title: house.location || '房源详情',
           priceText: `¥${house.price}/月`,
           gallery: house.images || [],
           tags: house.tags || [],
@@ -82,5 +105,17 @@ Page({
           loadFailed: true,
         })
       })
+  },
+
+  onGalleryImageError(event: WechatMiniprogram.BaseEvent) {
+    const index = Number(event.currentTarget.dataset.index)
+
+    if (Number.isNaN(index) || !this.data.gallery[index]) {
+      return
+    }
+
+    this.setData({
+      [`gallery[${index}]`]: '',
+    })
   },
 })

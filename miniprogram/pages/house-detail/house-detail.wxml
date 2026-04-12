@@ -16,7 +16,15 @@
   <block wx:else>
     <swiper wx:if="{{gallery.length > 0}}" class="gallery-swiper" circular indicator-dots autoplay>
       <swiper-item wx:for="{{gallery}}" wx:key="*this">
-        <image class="gallery-image" src="{{item}}" mode="aspectFill" />
+        <image
+          wx:if="{{item}}"
+          class="gallery-image"
+          src="{{item}}"
+          mode="aspectFill"
+          data-index="{{index}}"
+          binderror="onGalleryImageError"
+        />
+        <view wx:else class="gallery-slide gallery-item-placeholder"></view>
       </swiper-item>
     </swiper>
     <view wx:else class="gallery-placeholder"></view>

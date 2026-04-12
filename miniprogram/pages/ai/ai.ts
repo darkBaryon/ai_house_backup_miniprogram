@@ -95,6 +95,18 @@ Page({
     wx.navigateTo({ url: `/pages/house-detail/house-detail?id=${id}` })
   },
 
+  onHouseCardImageError(event: WechatMiniprogram.BaseEvent) {
+    const index = Number(event.currentTarget.dataset.index)
+
+    if (Number.isNaN(index) || !this.data.houseCards[index]) {
+      return
+    }
+
+    this.setData({
+      [`houseCards[${index}].cover`]: '',
+    })
+  },
+
   loadHouseCards(keyword?: string) {
     this.setData({
       houseLoading: true,

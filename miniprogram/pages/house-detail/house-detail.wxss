@@ -16,6 +16,10 @@
     linear-gradient(45deg, #dce6ff 0%, #f7fbff 100%);
 }
 
+.gallery-item-placeholder {
+  min-height: 520rpx;
+}
+
 .gallery-image {
   display: block;
   width: 100%;

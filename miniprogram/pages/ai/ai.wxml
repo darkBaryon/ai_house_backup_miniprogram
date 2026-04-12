@@ -25,7 +25,13 @@
             bindtap="openDetail"
           >
             <view wx:if="{{item.cover}}" class="house-inline-cover-wrap">
-              <image class="house-inline-cover" src="{{item.cover}}" mode="aspectFill" />
+              <image
+                class="house-inline-cover"
+                src="{{item.cover}}"
+                mode="aspectFill"
+                data-index="{{index}}"
+                binderror="onHouseCardImageError"
+              />
             </view>
             <view wx:else class="house-inline-cover house-inline-cover-placeholder"></view>
             <view class="house-inline-body">

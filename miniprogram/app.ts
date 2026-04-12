@@ -1,4 +1,5 @@
-import { wechatLogin } from './services/auth'
+import { API_ENDPOINTS } from './api/endpoints'
+import request from './utils/request'
 
 App<IAppOption>({
   globalData: {
@@ -18,7 +19,10 @@ App<IAppOption>({
           return
         }
 
-        wechatLogin(code)
+        request<{ token: string }>({
+          url: API_ENDPOINTS.auth.wechatLogin,
+          data: { code },
+        })
           .then((loginData) => {
             const token = loginData && loginData.token ? loginData.token : ''
 

@@ -1,17 +1,209 @@
 <view class="page-shell">
   <view class="discover-hero section-card">
     <view class="discover-brand-row">
-      <text class="discover-brand">AI House</text>
-      <text class="discover-brand-copy">更像真人客服的租房咨询小程序</text>
+      <view class="discover-logo" aria-role="text">智小窝</view>
+      <view class="discover-brand-meta">
+        <text class="discover-brand">智小窝找房</text>
+        <text class="discover-brand-copy">靠谱房源精选，客服在线帮你快速匹配</text>
+      </view>
     </view>
-    <view class="discover-title">聊天找房，比自己乱筛更省时间</view>
-    <view class="discover-highlight-list">
-      <view wx:for="{{productHighlights}}" wx:key="*this" class="discover-highlight-item">{{item}}</view>
-    </view>
+    <view class="discover-title">聊几句需求，就能收到合适推荐</view>
     <view class="discover-cta-row">
       <button class="btn-primary discover-cta" bindtap="goToAi">立即咨询</button>
-      <view class="discover-cta-note">和客服聊两句就能开始</view>
+      <view class="discover-cta-note">今天就把找房范围缩小到 1-2 个片区</view>
     </view>
+  </view>
+
+  <view class="search-shell section-card">
+    <view class="section-head">
+      <text class="section-title">公开找房</text>
+      <text class="section-subtitle">快捷筛选 + 更多条件组合搜索</text>
+    </view>
+    <view class="search-box">
+      <input
+        class="search-input"
+        placeholder="商圈 / 小区 / 地铁 / 地点"
+        value="{{searchKeyword}}"
+        bindinput="onKeywordInput"
+        confirm-type="search"
+        bindconfirm="onSearchTap"
+      />
+      <text class="search-link" bindtap="onSearchTap">搜索</text>
+    </view>
+    <view class="quick-preset-head">
+      <text class="quick-preset-title">常见需求</text>
+      <view class="quick-more-btn" bindtap="toggleAdvancedPanel">
+        {{advancedOpen ? '收起筛选' : '更多筛选'}}
+      </view>
+    </view>
+    <view class="quick-preset-row">
+      <view
+        wx:for="{{quickPresets}}"
+        wx:key="id"
+        class="quick-chip {{selectedQuickPreset === item.id ? 'quick-chip-active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onQuickPresetTap"
+      >
+        <text class="quick-chip-label">{{item.label}}</text>
+      </view>
+    </view>
+    <view wx:if="{{advancedOpen}}" class="advanced-panel">
+      <view class="advanced-group">
+        <text class="advanced-label">区域</text>
+        <view class="advanced-chip-row">
+          <view
+            wx:for="{{areaOptions}}"
+            wx:key="*this"
+            class="advanced-chip {{selectedArea === item ? 'advanced-chip-active' : ''}}"
+            data-value="{{item}}"
+            bindtap="onAreaTap"
+          >
+            {{item || '不限'}}
+          </view>
+        </view>
+      </view>
+
+      <view class="advanced-group">
+        <text class="advanced-label">租住方式</text>
+        <view class="advanced-chip-row">
+          <view
+            wx:for="{{rentModeOptions}}"
+            wx:key="value"
+            class="advanced-chip {{selectedRentMode === item.value ? 'advanced-chip-active' : ''}}"
+            data-value="{{item.value}}"
+            bindtap="onRentModeTap"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="advanced-group">
+        <text class="advanced-label">最少居室</text>
+        <view class="advanced-chip-row">
+          <view
+            wx:for="{{roomCountMinOptions}}"
+            wx:key="*this"
+            class="advanced-chip {{selectedRoomCountMin === item ? 'advanced-chip-active' : ''}}"
+            data-value="{{item}}"
+            bindtap="onRoomCountTap"
+          >
+            {{item === 0 ? '不限' : item + '居+'}}
+          </view>
+        </view>
+      </view>
+
+      <view class="advanced-group">
+        <text class="advanced-label">付款方式</text>
+        <view class="advanced-chip-row">
+          <view
+            wx:for="{{paymentCycleOptions}}"
+            wx:key="*this"
+            class="advanced-chip {{selectedPaymentCycle === item ? 'advanced-chip-active' : ''}}"
+            data-value="{{item}}"
+            bindtap="onPaymentCycleTap"
+          >
+            {{item || '不限'}}
+          </view>
+        </view>
+      </view>
+
+      <view class="advanced-group">
+        <text class="advanced-label">装修程度</text>
+        <view class="advanced-chip-row">
+          <view
+            wx:for="{{furnishedOptions}}"
+            wx:key="value"
+            class="advanced-chip {{selectedFurnishedLevel === item.value ? 'advanced-chip-active' : ''}}"
+            data-value="{{item.value}}"
+            bindtap="onFurnishedTap"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <view class="advanced-group">
+        <text class="advanced-label">价格区间（元/月）</text>
+        <view class="price-range-row">
+          <input
+            class="price-input"
+            type="number"
+            placeholder="最低价"
+            value="{{minPriceInput}}"
+            bindinput="onMinPriceInput"
+          />
+          <text class="price-sep">-</text>
+          <input
+            class="price-input"
+            type="number"
+            placeholder="最高价"
+            value="{{maxPriceInput}}"
+            bindinput="onMaxPriceInput"
+          />
+        </view>
+      </view>
+
+      <view class="advanced-group advanced-switches">
+        <view class="advanced-switch-item">
+          <text>近地铁</text>
+          <switch checked="{{needNearSubway}}" data-field="needNearSubway" bindchange="onToggleFieldChange" />
+        </view>
+        <view class="advanced-switch-item">
+          <text>可养宠物</text>
+          <switch checked="{{needPetFriendly}}" data-field="needPetFriendly" bindchange="onToggleFieldChange" />
+        </view>
+        <view class="advanced-switch-item">
+          <text>有电梯</text>
+          <switch checked="{{needElevator}}" data-field="needElevator" bindchange="onToggleFieldChange" />
+        </view>
+        <view class="advanced-switch-item">
+          <text>可做饭</text>
+          <switch checked="{{needCookingAllowed}}" data-field="needCookingAllowed" bindchange="onToggleFieldChange" />
+        </view>
+      </view>
+
+      <view class="advanced-actions">
+        <button class="btn-ghost advanced-btn" bindtap="onResetFilters">重置</button>
+        <button class="btn-primary advanced-btn" bindtap="onApplyFilters">应用筛选</button>
+      </view>
+    </view>
+    <view class="search-filter-note">快捷需求用于快速启动，更多筛选用于精确检索</view>
+    <view wx:if="{{publicLoading}}" class="recommend-state">正在加载公开房源...</view>
+    <view wx:elif="{{publicLoadFailed}}" class="recommend-state recommend-state-error">公开房源加载失败，请稍后重试。</view>
+    <view wx:elif="{{publicCards.length > 0}}" class="recommend-grid public-grid">
+      <view
+        wx:for="{{publicCards}}"
+        wx:key="id"
+        class="recommend-card"
+        data-id="{{item.id}}"
+        bindtap="openDetail"
+      >
+        <view wx:if="{{item.cover}}" class="recommend-cover-image-wrap">
+          <image
+            class="recommend-cover-image"
+            src="{{item.cover}}"
+            mode="aspectFill"
+            data-list-key="publicCards"
+            data-index="{{index}}"
+            binderror="onCardImageError"
+          />
+          <text wx:if="{{item.tags.length > 0}}" class="recommend-tag">{{item.tags[0]}}</text>
+        </view>
+        <view wx:else class="recommend-cover">
+          <text class="recommend-tag">{{item.statusText}}</text>
+        </view>
+        <view class="recommend-body">
+          <text class="recommend-area">{{item.district}}</text>
+          <text class="recommend-title">{{item.title}}</text>
+          <text class="recommend-detail">{{item.summary}}</text>
+          <view class="recommend-price-row">
+            <text class="recommend-price">{{item.priceText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="recommend-state">暂无匹配房源，换个关键词试试。</view>
   </view>
 
   <view class="section section-card recommend-shell">
@@ -29,7 +221,14 @@
         bindtap="openDetail"
       >
         <view wx:if="{{item.cover}}" class="recommend-cover-image-wrap">
-          <image class="recommend-cover-image" src="{{item.cover}}" mode="aspectFill" />
+          <image
+            class="recommend-cover-image"
+            src="{{item.cover}}"
+            mode="aspectFill"
+            data-list-key="recommendCards"
+            data-index="{{index}}"
+            binderror="onCardImageError"
+          />
           <text wx:if="{{item.tags.length > 0}}" class="recommend-tag">{{item.tags[0]}}</text>
         </view>
         <view wx:else class="recommend-cover">
@@ -48,53 +247,14 @@
     <view wx:else class="recommend-state">暂时还没有查到推荐房源，先去咨询也很合适。</view>
   </view>
 
-  <view class="search-shell section-card">
-    <view class="section-head">
-      <text class="section-title">未来公开找房入口</text>
-      <text class="section-subtitle">接口补齐后直接启用</text>
-    </view>
-    <view class="search-box">
-      <text class="search-text">商圈 / 小区 / 地铁 / 地点</text>
-      <text class="search-link">即将开放</text>
-    </view>
-    <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
-      <view class="filter-row">
-        <view
-          wx:for="{{filterGroups}}"
-          wx:key="label"
-          class="filter-chip {{item.active ? 'filter-chip-active' : ''}}"
-        >
-          {{item.label}}
-        </view>
-      </view>
-    </scroll-view>
-  </view>
-
   <view class="smart-bar section">
     <text class="smart-dot"></text>
     <text class="smart-copy">{{smartTip}}</text>
   </view>
 
-  <view class="section section-card discover-showcase-card">
-    <view class="section-head">
-      <text class="section-title">更适合这样找房</text>
-      <text class="section-subtitle">不用一上来填满所有条件</text>
-    </view>
-    <view class="showcase-grid">
-      <view wx:for="{{showCaseCards}}" wx:key="title" class="showcase-item">
-        <view class="showcase-item-inner">
-          <text class="showcase-badge">{{item.badge}}</text>
-          <text class="showcase-title">{{item.title}}</text>
-          <text class="showcase-meta">{{item.meta}}</text>
-          <text class="showcase-price">{{item.price}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
   <view class="empty-card section-card discover-guide-card">
-    <view class="section-title">公开房源列表即将开放</view>
-    <view class="empty-copy">现在最顺的方式还是先去咨询，让客服根据你的需求继续帮你找房。</view>
+    <view class="section-title">没找到理想房源？</view>
+    <view class="empty-copy">去咨询页告诉客服你的预算和通勤需求，会继续给你推更匹配的房源。</view>
     <button class="btn-primary" bindtap="goToAi">去咨询</button>
   </view>
 </view>
