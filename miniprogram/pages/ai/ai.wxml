@@ -2,7 +2,7 @@
   <view class="ai-chat-header">
     <view class="pill ai-pill">在线客服</view>
     <view class="ai-title">{{serviceName}}</view>
-    <view class="ai-copy">{{sending ? '正在为你整理回复' : '告诉我预算、区域、通勤和偏好，我来帮你缩小范围。'}}</view>
+    <view class="ai-copy">{{sending ? '正在回复...' : '说预算、区域、通勤即可'}}</view>
   </view>
 
   <scroll-view class="ai-chat-scroll" scroll-y enhanced show-scrollbar="{{false}}">
@@ -14,8 +14,8 @@
       <view class="house-inline-panel">
         <view class="result-title">房源信息</view>
         <view wx:if="{{houseLoading}}" class="result-summary">正在为你整理房源...</view>
-        <view wx:elif="{{houseLoadFailed}}" class="result-summary">房源加载失败，你可以继续追问或稍后再试。</view>
-        <view wx:elif="{{houseCards.length === 0}}" class="result-summary">暂时还没有匹配到房源，你可以继续补充预算、区域或通勤要求。</view>
+        <view wx:elif="{{houseLoadFailed}}" class="result-summary">房源加载失败，请稍后重试。</view>
+        <view wx:elif="{{houseCards.length === 0}}" class="result-summary">暂无匹配房源，补充条件试试。</view>
         <view wx:else class="house-card-list">
           <view
             wx:for="{{houseCards}}"

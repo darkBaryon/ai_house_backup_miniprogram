@@ -1,0 +1,49 @@
+.login-card {
+  margin-top: 40rpx;
+  padding: 34rpx 28rpx 30rpx;
+}
+
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 34rpx;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.35), transparent 42%),
+    linear-gradient(145deg, #1f2430 0%, #313848 100%);
+  color: #fff6cf;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.login-title {
+  margin-top: 22rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.login-copy {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.agree-row {
+  margin-top: 24rpx;
+}
+
+.agree-label {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 30rpx;
+}

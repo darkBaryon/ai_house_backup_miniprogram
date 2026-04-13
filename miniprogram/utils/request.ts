@@ -11,9 +11,9 @@ interface BaseUrlMap {
 }
 
 const BASE_URL_MAP: BaseUrlMap = {
-  develop: 'http://127.0.0.1:5000',
-  trial: 'http://127.0.0.1:5000',
-  release: 'http://127.0.0.1:5000',
+  develop: 'https://hungry-exhume-lunchroom.ngrok-free.dev',
+  trial: 'https://hungry-exhume-lunchroom.ngrok-free.dev',
+  release: 'https://hungry-exhume-lunchroom.ngrok-free.dev',
 }
 
 const API_VERSION = 'v1'

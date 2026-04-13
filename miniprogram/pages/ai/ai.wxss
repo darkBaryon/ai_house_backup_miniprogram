@@ -2,17 +2,23 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f3f7ff 0%, #f6f8fc 160rpx, #f6f8fc 100%);
+  background:
+    radial-gradient(circle at 84% 5%, rgba(255, 225, 155, 0.26), transparent 26%),
+    linear-gradient(180deg, #f4f5f8 0%, #f3f4f6 140rpx, #f3f4f6 100%);
 }
 
 .ai-chat-header {
-  padding: 18rpx 24rpx 10rpx;
+  margin: 18rpx 24rpx 8rpx;
+  padding: 18rpx 18rpx 16rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  border: 1rpx solid rgba(23, 30, 45, 0.06);
 }
 
 .ai-pill {
   margin-bottom: 8rpx;
-  background: #edf9f5;
-  color: #287467;
+  background: #eef2f8;
+  color: #2a3551;
 }
 
 .ai-title {
@@ -31,7 +37,7 @@
 .ai-chat-scroll {
   flex: 1;
   min-height: 0;
-  padding: 0 24rpx;
+  padding: 0 24rpx 6rpx;
 }
 
 .ai-chat-list {
@@ -57,31 +63,33 @@
 
 .chat-bubble {
   max-width: 82%;
-  padding: 18rpx 22rpx;
-  border-radius: 22rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 18rpx;
   background: #ffffff;
   color: var(--text-primary);
   font-size: 24rpx;
-  line-height: 1.7;
-  box-shadow: 0 10rpx 24rpx rgba(31, 74, 159, 0.08);
+  line-height: 1.65;
+  box-shadow: 0 8rpx 20rpx rgba(14, 20, 36, 0.06);
+  border: 1rpx solid rgba(23, 30, 45, 0.04);
 }
 
 .chat-user .chat-bubble {
-  background: var(--brand);
+  background: linear-gradient(135deg, #1c263b 0%, #2a3653 100%);
   color: #ffffff;
 }
 
 .house-inline-panel {
-  margin-top: 6rpx;
+  margin-top: 8rpx;
   margin-bottom: 18rpx;
-  padding: 18rpx;
-  border-radius: 22rpx;
-  background: var(--surface-muted);
+  padding: 16rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  border: 1rpx solid rgba(23, 30, 45, 0.06);
 }
 
 .result-title {
-  margin-bottom: 8rpx;
-  font-size: 26rpx;
+  margin-bottom: 10rpx;
+  font-size: 24rpx;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -95,27 +103,28 @@
 .house-card-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
-  margin-top: 14rpx;
+  gap: 10rpx;
+  margin-top: 10rpx;
 }
 
 .house-inline-card {
   box-sizing: border-box;
   width: calc(50% - 6rpx);
   overflow: hidden;
-  border-radius: 18rpx;
+  border-radius: 14rpx;
   background: #ffffff;
+  border: 1rpx solid #e9edf4;
 }
 
 .house-inline-cover-wrap {
-  height: 112rpx;
+  height: 102rpx;
   background: #eef3fb;
 }
 
 .house-inline-cover {
   display: block;
   width: 100%;
-  height: 112rpx;
+  height: 102rpx;
   background:
     linear-gradient(135deg, rgba(31, 94, 255, 0.12), rgba(246, 185, 76, 0.16)),
     linear-gradient(45deg, #e4ebff 0%, #f8fbff 100%);
@@ -126,12 +135,12 @@
 }
 
 .house-inline-body {
-  padding: 14rpx 14rpx 16rpx;
+  padding: 12rpx 12rpx 14rpx;
 }
 
 .house-inline-title {
-  margin-bottom: 6rpx;
-  font-size: 22rpx;
+  margin-bottom: 4rpx;
+  font-size: 21rpx;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.4;
@@ -139,7 +148,7 @@
 
 .house-inline-copy {
   margin-bottom: 4rpx;
-  font-size: 18rpx;
+  font-size: 17rpx;
   line-height: 1.5;
   color: var(--text-secondary);
 }
@@ -153,14 +162,14 @@
 }
 
 .house-inline-price {
-  font-size: 22rpx;
+  font-size: 21rpx;
   font-weight: 700;
   color: #da493c;
 }
 
 .house-inline-link {
   font-size: 18rpx;
-  color: var(--brand);
+  color: #2b3653;
 }
 
 .tag-row {
@@ -172,10 +181,10 @@
 
 .house-tag {
   padding: 6rpx 10rpx;
-  border: 1rpx solid rgba(31, 94, 255, 0.14);
+  border: 1rpx solid rgba(23, 30, 45, 0.1);
   border-radius: 999rpx;
-  background: rgba(255, 255, 255, 0.66);
-  color: #51607a;
+  background: #f5f7fb;
+  color: #4f5a70;
   font-size: 18rpx;
 }
 
@@ -183,8 +192,8 @@
   position: sticky;
   bottom: 0;
   padding: 8rpx 24rpx calc(10rpx + env(safe-area-inset-bottom));
-  background: rgba(246, 248, 252, 0.96);
-  backdrop-filter: blur(8rpx);
+  background: rgba(243, 244, 246, 0.97);
+  backdrop-filter: blur(10rpx);
   border-top: 1rpx solid var(--line);
 }
 
@@ -205,9 +214,9 @@
   justify-content: center;
   min-height: 52rpx;
   padding: 0 18rpx;
-  border-radius: 16rpx;
-  background: linear-gradient(180deg, #eef3ff 0%, #f8fbff 100%);
-  color: var(--brand);
+  border-radius: 14rpx;
+  background: #edf0f6;
+  color: #2a3551;
   font-size: 22rpx;
   font-weight: 600;
 }
@@ -215,30 +224,30 @@
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10rpx;
+  gap: 8rpx;
 }
 
 .quick-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 96rpx;
-  padding: 14rpx 16rpx;
-  border-radius: 18rpx;
-  background: linear-gradient(180deg, #eef3ff 0%, #f8fbff 100%);
+  min-height: 88rpx;
+  padding: 12rpx 14rpx;
+  border-radius: 14rpx;
+  background: #eef1f7;
 }
 
 .quick-card-title {
   display: block;
   margin-bottom: 6rpx;
-  font-size: 22rpx;
+  font-size: 21rpx;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .quick-card-copy {
   display: block;
-  font-size: 18rpx;
+  font-size: 17rpx;
   line-height: 1.4;
   color: var(--text-secondary);
 }
@@ -256,11 +265,11 @@
   justify-content: center;
   min-height: 52rpx;
   padding: 0 16rpx;
-  border-radius: 16rpx;
-  background: rgba(255, 255, 255, 0.82);
-  color: #51607a;
+  border-radius: 14rpx;
+  background: #ffffff;
+  color: #4f5a70;
   font-size: 20rpx;
-  border: 1rpx solid rgba(31, 94, 255, 0.12);
+  border: 1rpx solid rgba(23, 30, 45, 0.1);
 }
 
 .input-wrap {
@@ -271,23 +280,23 @@
 
 .chat-input {
   flex: 1;
-  min-height: 68rpx;
+  min-height: 64rpx;
   padding: 0 20rpx;
-  border-radius: 22rpx;
+  border-radius: 18rpx;
   background: #ffffff;
   font-size: 24rpx;
   color: var(--text-primary);
-  box-shadow: inset 0 0 0 1rpx rgba(31, 94, 255, 0.08);
+  box-shadow: inset 0 0 0 1rpx rgba(23, 30, 45, 0.08);
 }
 
 .chat-send-btn {
   flex: none;
-  width: 120rpx !important;
+  width: 108rpx !important;
   min-width: 72rpx !important;
-  height: 60rpx !important;
-  min-height: 60rpx !important;
-  line-height: 60rpx !important;
+  height: 56rpx !important;
+  min-height: 56rpx !important;
+  line-height: 56rpx !important;
   padding: 0 !important;
-  border-radius: 18rpx !important;
+  border-radius: 14rpx !important;
   font-size: 20rpx !important;
 }

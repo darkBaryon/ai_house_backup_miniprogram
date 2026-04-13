@@ -15,4 +15,9 @@ export const API_ENDPOINTS = {
     status: '/house/status',
     delete: '/house/delete',
   },
+  user: {
+    profile: '/user/profile',
+    dashboard: '/user/dashboard',
+    switchRole: '/user/switch_role',
+  },
 } as const

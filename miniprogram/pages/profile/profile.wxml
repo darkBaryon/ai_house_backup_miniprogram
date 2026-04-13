@@ -1,20 +1,23 @@
 <view class="page-shell">
   <view class="section profile-hero section-card">
-    <view class="avatar">A</view>
+    <view class="avatar">{{avatarText}}</view>
     <view class="profile-info">
-      <view class="profile-title">欢迎来到 AI House</view>
-      <view class="profile-copy">登录后可以同步收藏、预约记录和 AI 推荐结果。</view>
+      <view class="profile-title">{{profile.nickname}}</view>
+      <view class="profile-copy">
+        {{isLoggedIn ? '当前身份：租客' : '未登录个人中心，登录后可查看收藏、浏览与咨询记录'}}
+      </view>
     </view>
-    <button class="btn-ghost profile-btn">立即登录</button>
+    <button wx:if="{{!isLoggedIn}}" class="btn-primary profile-btn" bindtap="onLoginTap">登录个人中心</button>
+    <button wx:else class="btn-ghost profile-btn" bindtap="onSwitchRoleTap">切换角色</button>
   </view>
 
   <view class="section section-card stat-card">
     <view class="section-head">
-      <text class="section-title">我的数据</text>
-      <text class="section-subtitle">最近 30 天</text>
+      <text class="section-title">租客数据</text>
+      <text class="section-subtitle">个人主页聚合</text>
     </view>
     <view class="stat-grid">
-      <view wx:for="{{stats}}" wx:key="label" class="stat-item">
+      <view wx:for="{{stats}}" wx:key="key" class="stat-item">
         <text class="stat-value">{{item.value}}</text>
         <text class="stat-label">{{item.label}}</text>
       </view>
@@ -23,19 +26,22 @@
 
   <view class="section section-card service-card">
     <view class="section-head">
-      <text class="section-title">常用服务</text>
-      <text class="section-subtitle">帮助你继续推进找房</text>
+      <text class="section-title">租客服务</text>
+      <text class="section-subtitle">收藏、浏览、咨询与找房入口</text>
     </view>
-    <view wx:for="{{services}}" wx:key="*this" class="service-item">
-      <text>{{item}}</text>
+    <view wx:for="{{actions}}" wx:key="id" class="service-item" data-id="{{item.id}}" bindtap="onActionTap">
+      <view class="service-main">
+        <text class="service-title">{{item.title}}</text>
+        <text class="service-desc">{{item.desc}}</text>
+      </view>
       <text class="service-arrow">›</text>
     </view>
   </view>
 
   <view class="section section-card membership-card">
-    <view class="pill">后续可扩展</view>
-    <view class="section-title membership-title">专属顾问与深度报告</view>
-    <view class="membership-copy">如果后面要加会员、深度购房建议或一对一服务，这里可以直接承接。</view>
+    <view class="pill">租客模式说明</view>
+    <view class="section-title membership-title">找房和咨询默认面向租客</view>
+    <view wx:for="{{tips}}" wx:key="*this" class="membership-copy">{{item}}</view>
     <button class="btn-primary" bindtap="goToAi">咨询专属服务</button>
   </view>
 </view>

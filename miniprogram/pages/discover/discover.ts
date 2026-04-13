@@ -3,7 +3,6 @@ import { fetchPublicHouseList, HouseListItem } from '../../services/house'
 interface QuickPreset {
   id: string
   label: string
-  desc: string
 }
 
 type HouseCardListKey = 'recommendCards' | 'publicCards'
@@ -16,11 +15,11 @@ type ToggleField =
 Page({
   data: {
     quickPresets: [
-      { id: 'near_subway', label: '近地铁', desc: '优先通勤方便' },
-      { id: 'budget_friendly', label: '预算友好', desc: '先看低总价' },
-      { id: 'whole_two_room', label: '整租两居', desc: '适合两人居住' },
-      { id: 'pet_friendly', label: '可养宠物', desc: '宠物友好房源' },
-      { id: 'pay_monthly', label: '押一付一', desc: '减轻首期压力' },
+      { id: 'near_subway', label: '近地铁' },
+      { id: 'budget_friendly', label: '预算友好' },
+      { id: 'whole_two_room', label: '整租两居' },
+      { id: 'pet_friendly', label: '可养宠物' },
+      { id: 'pay_monthly', label: '押一付一' },
     ] as QuickPreset[],
     selectedQuickPreset: '',
     advancedOpen: false,
@@ -48,8 +47,9 @@ Page({
     needCookingAllowed: false,
     minPriceInput: '',
     maxPriceInput: '',
-    smartTip: '公开找房检索已升级：常见需求一键触发，更多筛选可展开精细设置。',
+    smartTip: '支持快捷筛选和高级筛选',
     searchKeyword: '',
+    hasSearched: false,
     publicCards: [] as HouseListItem[],
     publicLoading: false,
     publicLoadFailed: false,
@@ -60,7 +60,6 @@ Page({
 
   onLoad() {
     this.loadRecommendCards()
-    this.loadPublicCards()
   },
 
   goToAi() {
@@ -250,6 +249,7 @@ Page({
 
   loadPublicCards() {
     this.setData({
+      hasSearched: true,
       publicLoading: true,
       publicLoadFailed: false,
     })

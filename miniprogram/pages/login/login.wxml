@@ -1,0 +1,18 @@
+<view class="page-shell">
+  <view class="section-card login-card">
+    <view class="login-logo">智小窝</view>
+    <view class="login-title">登录个人中心</view>
+    <view class="login-copy">登录后可查看收藏、浏览记录和咨询会话，并在“我的”页面管理个人信息。</view>
+
+    <checkbox-group bindchange="onAgreeChange" class="agree-row">
+      <label class="agree-label">
+        <checkbox value="agree" checked="{{agreed}}" />
+        <text>我已阅读并同意《用户协议》与《隐私政策》</text>
+      </label>
+    </checkbox-group>
+
+    <button class="btn-primary login-btn" bindtap="onConfirmLogin" loading="{{loading}}">
+      {{loading ? '登录中...' : '微信登录'}}
+    </button>
+  </view>
+</view>

@@ -1,18 +1,18 @@
 page {
-  --page-bg: #f6f8fc;
+  --page-bg: #f3f4f6;
   --surface: #ffffff;
-  --surface-muted: #eef3fb;
-  --text-primary: #1f2430;
-  --text-secondary: #5b6475;
-  --text-tertiary: #98a2b3;
-  --line: #e7ecf3;
-  --brand: #1f5eff;
-  --brand-soft: #eaf0ff;
-  --accent: #19c2a0;
-  --warn: #f6b94c;
-  --radius-lg: 28rpx;
-  --radius-md: 20rpx;
-  --shadow-card: 0 14rpx 32rpx rgba(31, 74, 159, 0.08);
+  --surface-muted: #f1f2f5;
+  --text-primary: #121722;
+  --text-secondary: #565f72;
+  --text-tertiary: #8f98aa;
+  --line: #e7e9ee;
+  --brand: #161d2b;
+  --brand-soft: #edf0f6;
+  --accent: #1fa77b;
+  --warn: #f0a94b;
+  --radius-lg: 24rpx;
+  --radius-md: 16rpx;
+  --shadow-card: 0 8rpx 24rpx rgba(14, 20, 36, 0.05);
 }
 
 page {
@@ -20,6 +20,7 @@ page {
   color: var(--text-primary);
   font-size: 28rpx;
   line-height: 1.5;
+  font-family: 'PingFang SC', 'SF Pro SC', 'Helvetica Neue', sans-serif;
 }
 
 view,
@@ -90,7 +91,7 @@ navigator {
   padding: 0 28rpx;
   border: 0;
   border-radius: 999rpx;
-  background: linear-gradient(135deg, #1f5eff 0%, #19c2a0 100%);
+  background: linear-gradient(135deg, #171e2d 0%, #2a354e 100%);
   color: #ffffff;
   font-size: 26rpx;
   font-weight: 600;
